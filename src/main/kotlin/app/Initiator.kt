@@ -3,7 +3,7 @@ package app
 class Initiator {
     private var tasks = listOf<ITask>()
     private var index: Int = 0
-    private var justRunned: Int = 0
+    private var justRanIndex: Int = 0
     private var allTasksProcessed = false
 
     fun setTasks(taskList: List<ITask>) {
@@ -12,7 +12,7 @@ class Initiator {
 
     fun runNext() {
         tasks[index].execute()
-        justRunned = index
+        justRanIndex = index
         index++
         if (index >= tasks.size) {
             index = tasks.lastIndex
@@ -21,8 +21,8 @@ class Initiator {
     }
 
     fun undoExecuted() {
-        tasks[justRunned].undo()
-        var previous = justRunned - 1
+        tasks[justRanIndex].undo()
+        var previous = justRanIndex - 1
         if(previous < 0) previous = 0
         index = previous
     }
